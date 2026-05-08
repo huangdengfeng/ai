@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seezoon.domain.dao.mapper.StudentInfoMapper">
+  <resultMap id="BaseResultMap" type="com.seezoon.domain.dao.po.StudentInfoPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="introduce" jdbcType="LONGVARCHAR" property="introduce" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, no, name, sex, introduce,birthday, mobile, status, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+ <select id="selectByPrimaryKeyForUpdate" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from student_info
+    where id = #{id,jdbcType=INTEGER} for update
+  </select>
+
+
+
+  <select id="selectByNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student_info
+    where no = #{no,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.seezoon.domain.dao.po.StudentInfoPO$Condition">
+    select
+    <include refid="Base_Column_List" />
+    from student_info
+    <where>
+    <if test="id != null">
+      id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="no != null and no != ''">
+      and no = #{no,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null and name != ''">
+      and name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null and mobile != ''">
+      and mobile = #{mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null">
+      and status = #{status,jdbcType=TINYINT}
+    </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.seezoon.domain.dao.po.StudentInfoPO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into student_info (id, no, name, 
+      sex, birthday, mobile, 
+      status, create_time, update_time, 
+      introduce)
+    values (#{id,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, #{mobile,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{introduce,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seezoon.domain.dao.po.StudentInfoPO">
+    update student_info
+    <set>
+      <if test="no != null">
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.seezoon.domain.dao.po.StudentInfoPO">
+    update student_info
+    set no = #{no,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      introduce = #{introduce,jdbcType=LONGVARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

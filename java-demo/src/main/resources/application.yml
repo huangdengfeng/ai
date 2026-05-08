@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    # 环境标识，本机开发环境有意义,如果觉得污染,可以IDEA 传入--spring.profiles.active=local
+    active: local
+    include: db
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  application:
+    name: java-demon
+  threads:
+    virtual:
+      enabled: true
+  task:
+    scheduling:
+      pool:
+        # no effect when virtual mode
+        size: 1
+      thread-name-prefix: scheduling-
+    execution:
+      pool:
+        # no effect when virtual mode
+        core-size: 1
+server:
+  port: 8080
+  shutdown: graceful
+  tomcat:
+    remoteip:
+      host-header: X-Forwarded-Host
+    basedir: .
+    connection-timeout: 60s
+    threads:
+      # no effect when virtual mode
+      max: 2000
+    accesslog:
+      # %h %l %u %t %r %s %b 默认
+      #pattern see https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging
+      pattern: '%{X-Forwarded-For}i %h %l %u %t %r %s %b %D'
+      enabled: true
+      max-days: 7
+# swagger-ui.html
+springdoc:
+  api-docs:
+    # 默认是true,关闭选择false
+    enabled: ${springdoc.enable:false}
+  swagger-ui:
+    enabled: ${springdoc.enable:false}
