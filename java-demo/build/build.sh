@@ -6,4 +6,4 @@ name=$(mvn -Dexec.executable='echo' -Dexec.args='${project.artifactId}' --non-re
 mvn clean package
 docker build --build-arg MODULE_NAME=${name} -t "${name}":"${version}" .
 # 删除被覆盖的，这里需要先停止相关容器，正常镜像机器不会启动容器
-docker images | grep '<none>.*<none>' | awk '{print $3 }' | xargs docker rmi
+#docker images | grep '<none>.*<none>' | awk '{print $3 }' | xargs docker rmi
