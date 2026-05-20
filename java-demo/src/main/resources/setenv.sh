@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 # 不指定这获取环境中java命令
-JAVA_HOME=/usr/local/jdk-21.0.2
+JAVA_HOME=/usr/local/jdk-25.0.2
 
 MAIN_CLASS="com.seezoon.MainApplication"
 # 可加入自定的目录
@@ -42,9 +42,14 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://tracing-analysis-dc-sz.aliyuncs.com:80
 
 # Exporter 配置，none 不上报任何数据,调试console日志中保留trace_id和span_id
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-export OTEL_TRACES_EXPORTER=otlp
-export OTEL_METRICS_EXPORTER=otlp
-export OTEL_LOGS_EXPORTER=otlp
+# 调试
+# export OTEL_TRACES_EXPORTER=none
+# export OTEL_METRICS_EXPORTER=none
+# export OTEL_LOGS_EXPORTER=console
+# 正式
+# export OTEL_TRACES_EXPORTER=otlp
+# export OTEL_METRICS_EXPORTER=otlp
+# export OTEL_LOGS_EXPORTER=otlp
 
 # ========== 采样配置 ==========
 # 采样器类型: always_on(全采), always_off(不采), traceidratio(按比例), parentbased_traceidratio(推荐)
