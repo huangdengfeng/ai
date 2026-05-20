@@ -43,10 +43,9 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://tracing-analysis-dc-sz.aliyuncs.com:80
 # Exporter 配置，none 不上报任何数据,调试console日志中保留trace_id和span_id
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 # 调试
-# export OTEL_TRACES_EXPORTER=none
-# export OTEL_METRICS_EXPORTER=none
+# export OTEL_TRACES_EXPORTER=console
+# export OTEL_METRICS_EXPORTER=console
 # export OTEL_LOGS_EXPORTER=console
-#export OTEL_INSTRUMENTATION_LOGBACK_MDC_ENABLED=true
 
 # 正式
 # export OTEL_TRACES_EXPORTER=otlp
